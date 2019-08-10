@@ -8,7 +8,7 @@ The code utilizes a PID control to navigate a vehicle through the simulator.  A 
 
 
 ## Code Walkthrough
-###main.cpp
+* main.cpp
 The PID controller is initialized on ln 40.  This sets the coefficients for the PID controller. I chose to tune the parameters manually.  I was able to achieve a decent result within a few iterations.  Had I struggled with this, my plan was to implement the twiddle approach, but it was not necessary.    Below are my iterations through the paramaters.
 
   1) pid.Init(1.0, 0.0, 0.0);  // Steering angle progressively gets bigger - very wild.
@@ -24,7 +24,7 @@ Cte updates are sent to the controller on ln 67.
 Finally after the PID controller is ran the steering angle is updated on ln 68.
 
 
-###PID.cpp
+* PID.cpp
 The PID controllers coefficients are brought in and the errors initiallized on lines 11-21.
 
 The error is then calculated on lines 24 - 30.
