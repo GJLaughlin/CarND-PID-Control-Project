@@ -1,6 +1,44 @@
 # CarND-Controls-PID
 Self-Driving Car Engineer Nanodegree Program
 
+
+## Overview
+The code utilizes a PID control to navigate a vehicle through the simulator.  A PID controller is made up of three components.  The Proportional component is the main driver in the controller.  It can very rapidly try to eliminate error / produce a zero value.  The Integral component uses its sum to influence the rate of change to the error.  Lastly the Differential component is what helps reduce overshoot or oscillations by introducing a time factor.
+
+
+
+## Code Walkthrough
+###main.cpp
+The PID controller is initialized on ln 40.  This sets the coefficients for the PID controller. I chose to tune the parameters manually.  I was able to achieve a decent result within a few iterations.  Had I struggled with this, my plan was to implement the twiddle approach, but it was not necessary.    Below are my iterations through the paramaters.
+
+  1) pid.Init(1.0, 0.0, 0.0);  // Steering angle progressively gets bigger - very wild.
+  2) pid.Init(0.5, 0.0, 0.0); // Steering angle progressively gets bigger - still not great.
+  3) pid.Init(0.5, 0.0, 1.0);  // Steering angle gets checked by differential, makes around but still wild.
+  4) pid.Init(0.5, 0.0, 3.0);  // Lets try 3.0 - that's what was used in class.  Makes it around OK, but a little dicey in the big corners.
+  5) pid.Init(0.5, 0.002, 3.0);  // Adding a little bit of integral to hopefully reduce the error on the big corners, helped but not good yet.
+  6) pid.Init(0.25, 0.002, 3.0);  // Dropping the proportional value to hopefully slow the rate of change.  Step in the right direction.
+  7) pid.Init(0.15, 0.002, 3.0);  // Cutting the proportional value roughly in half again to see if driveablitiy improvement continues.
+
+Cte updates are sent to the controller on ln 67.
+
+Finally after the PID controller is ran the steering angle is updated on ln 68.
+
+
+###PID.cpp
+The PID controllers coefficients are brought in and the errors initiallized on lines 11-21.
+
+The error is then calculated on lines 24 - 30.
+
+Finally the PID algorithm is applied with the newly calculated errors on ln 37.
+
+
+
+
+
+
+
+
+
 ---
 
 ## Dependencies
